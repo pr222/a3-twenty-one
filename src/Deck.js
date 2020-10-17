@@ -24,36 +24,36 @@ export class Deck {
   static create () {
     const suitKeys = Object.keys(Suits)
     const rankKeys = Object.keys(Ranks)
-    const playingCards = new Array(suitKeys.length * rankKeys.length)
+    const deck = new Array(suitKeys.length * rankKeys.length)
     let i = 0
 
     for (const suitKey of suitKeys) {
       for (const rankKey of rankKeys) {
-        playingCards[i++] = new PlayingCard(Ranks[rankKey], Suits[suitKey])
+        deck[i++] = new PlayingCard(Ranks[rankKey], Suits[suitKey])
       }
     }
 
-    return playingCards
+    return deck
   }
 
   /**
    * Shuffles the array of playing cards in place.
    *
-   * @param {PlayingCard[]} playingCards - The array of PlayingCard objects to shuffle.
+   * @param {PlayingCard[]} deck - The array of PlayingCard objects to shuffle.
    * @returns {PlayingCard[]} The shuffled array of PlayingCard objects.
    */
-  static shuffle (playingCards) {
-    let i = playingCards.length
+  static shuffle (deck) {
+    let i = deck.length
     let j
     let x
 
     while (i) {
       j = (Math.random() * i) | 0 // using bitwise OR 0 to floor a number
-      x = playingCards[--i]
-      playingCards[i] = playingCards[j]
-      playingCards[j] = x
+      x = deck[--i]
+      deck[i] = deck[j]
+      deck[j] = x
     }
 
-    return playingCards
+    return deck
   }
 }
