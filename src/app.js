@@ -7,15 +7,26 @@
  * @version 1.0.0
  */
 
-import { Deck } from './Deck.js'
+// import { Deck } from './Deck.js'
 import { inputValidation } from './inputValidation.js'
+import { InputError, EmptyDeck } from './customErrors.js'
 
 try {
   const players = inputValidation()
   console.log('Args to use: ', players)
   console.log('All args ', process.argv)
+  throw new Error('Testerror')
 } catch (err) {
   console.error(err.message)
+  process.exitCode = 1
+
+  if (err instanceof InputError) {
+    process.exitCode = 26
+  }
+
+  if (err instanceof EmptyDeck) {
+    process.exitCode = 27
+  }
 }
 
 /*
