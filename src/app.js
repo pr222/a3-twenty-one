@@ -11,6 +11,22 @@
 
 import { Deck } from './Deck.js'
 
+let players = process.argv.slice(2)
+players = Number(players)
+// Begins game with 3 players if no starting arguments are present.
+if (players === 0) {
+  players = 3
+}
+// Checks if input arguments are valid numbers for the game to start.
+if (Number.isInteger(players) && (players <= 7 || players === 20 || players === 50)) {
+  console.log('Welcome to the table, have a seat!')
+} else {
+  console.log('Sorry, this table is not fit for you!')
+}
+
+console.log('Args to use: ', players)
+console.log('All args ', process.argv)
+/*
 try {
   // Create 52 playing cards and...
   const playingCards = Deck.create()
@@ -33,3 +49,4 @@ try {
 } catch (e) {
   console.error(e.message)
 }
+*/
