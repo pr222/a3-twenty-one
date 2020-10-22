@@ -9,13 +9,14 @@
 
 // import { Deck } from './Deck.js'
 import { inputValidation } from './inputValidation.js'
-import { InputError, EmptyDeck } from './customErrors.js'
+import { InputError } from './InputError.js'
+import { EmptyDeck } from './EmptyDeck.js'
 
 try {
+  // Begin checking if input is a valid number of players.
   const players = inputValidation()
-  console.log('Args to use: ', players)
-  console.log('All args ', process.argv)
-  throw new Error('Testerror')
+  console.log('Args to use: ', players) // TEST
+  console.log('All args ', process.argv) // TEST
 } catch (err) {
   console.error(err.message)
   process.exitCode = 1

@@ -6,7 +6,7 @@
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */
-import { InputError } from './customErrors.js'
+import { InputError } from './InputError.js'
 
 /**
  * Takes the commando agruments and checks if they are valid for the game.
