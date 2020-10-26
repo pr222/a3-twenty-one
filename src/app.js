@@ -11,7 +11,8 @@ import { Deck } from './Deck.js'
 import { inputValidation } from './inputValidation.js'
 import { InputError } from './InputError.js'
 import { EmptyDeckError } from './EmptyDeckError.js'
-import { dealCard } from './dealCard.js'
+import { PlayingCard } from './PlayingCard.js'
+import { Hand } from './Hand.js'
 
 try {
   // Begin checking if input is a valid number of players.
@@ -33,30 +34,28 @@ try {
   // Shuffle the library.
   Deck.shuffle(library)
 
-  // Copy the library to the drawpile.
-  const drawPile = library.slice()
-
   // Create an starting empty discard pile.
   const discardPile = []
 
   // Players' hand
-  const player = []
-
+  const hand1 = new Hand([])
+  console.log('Library:', library.join(', '), '\n') // TEST
   // Deal the first card to player from the draw pile.
-  dealCard(player, drawPile)
+  // dealCard(hand1, library)
+  hand1.dealCard(library)
+  hand1.dealCard(discardPile)
 
-  dealCard(player, whateverPile)
+  // 2nd card
+  // dealCard(hand1, library)
 
-  // Draw three playing cards, view the remaining playing cards, the drawn playing cards and
-  // then calculate the value of them.
+  // discard(hand1, discardPile)
+
+  console.log('Library:', library.join(', '), '\n') // TEST
+  // Calculate the value of cards in the hand.
   // (`value + playingCard` implicitly calls PlayingCard#valueOf to get
   //  the primitive value of the current PlayingCard object.)
-  const hand = drawPile.splice(0, 3)
-
-  console.log('Deck after 3-card splice:', drawPile.join(', '), '\n') // TEST
-
-  const value = hand.reduce((value, playingCard) => value + playingCard, 0)
-  console.log(`Player's hand is: ${hand.join(' ')} (${value})`)
+  // const value = hand1.reduce((value, playingCard) => value + playingCard, 0)
+  // console.log(`Player's hand is: ${hand1.join(' ')} (${value})`)
 } catch (err) {
   console.error(err.message)
   process.exitCode = 1
