@@ -11,6 +11,7 @@ import { Deck } from './Deck.js'
 import { inputValidation } from './inputValidation.js'
 import { InputError } from './InputError.js'
 import { EmptyDeck } from './EmptyDeck.js'
+import { dealCard } from './dealCard.js'
 
 try {
   // Begin checking if input is a valid number of players.
@@ -18,13 +19,13 @@ try {
   console.log('Players: ', nrOfPlayers) // TEST
 
   // Make array of players
-  const players = []
+  // const players = new Array(nrOfPlayers)
 
-  for (let i = 0; i < nrOfPlayers; i++) {
-    players.push(i)
-  }
+  // for (let i = 0; i < players.length; i++) {
+  //   players.push(i)
+  // }
 
-  console.log(players) // TEST
+  // console.log(players) // TEST
 
   // Create starting library with 52 playing cards.
   const library = Deck.create()
@@ -35,13 +36,31 @@ try {
   console.log('Shuffled library: ', library.join(', '), '\n') // TEST
 
   // Put the library to the drawpile.
-  const drawPile = library.splice(0, 52)
+  const drawPile = library.slice()
 
-  console.log('Library: ', library.join(', '), '\n') // TEST
+  console.log('Sliced library: ', library.join(', '), '\n') // TEST
   console.log('Drawpile: ', drawPile.join(', '), '\n') // TEST
 
   // Create an starting empty discard pile.
   const discardPile = []
+
+  // Players' hand
+  const player = []
+
+  dealCard(player, drawPile)
+
+  console.log(player.join('')) // TEST¨
+  console.log(player)
+  console.log('Drawpile after deal?: ', drawPile.join(', '), '\n') // TEST
+  
+  
+  dealCard(player, drawPile)
+
+  console.log(player.join('')) // TEST¨
+  console.log(player)
+  console.log('Drawpile after deal?: ', drawPile.join(', '), '\n') // TEST
+
+
 
   // Draw three playing cards, view the remaining playing cards, the drawn playing cards and
   // then calculate the value of them.
@@ -49,7 +68,7 @@ try {
   //  the primitive value of the current PlayingCard object.)
   const hand = drawPile.splice(0, 3)
 
-  console.log('Deck with removed cards:', drawPile.join(', '), '\n') // TEST
+  console.log('Deck after 3-card splice:', drawPile.join(', '), '\n') // TEST
 
   const value = hand.reduce((value, playingCard) => value + playingCard, 0)
   console.log(`Player's hand is: ${hand.join(' ')} (${value})`)
