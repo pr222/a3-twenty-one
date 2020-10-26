@@ -10,7 +10,7 @@
 import { Deck } from './Deck.js'
 import { inputValidation } from './inputValidation.js'
 import { InputError } from './InputError.js'
-import { EmptyDeck } from './EmptyDeck.js'
+import { EmptyDeckError } from './EmptyDeckError.js'
 import { dealCard } from './dealCard.js'
 
 try {
@@ -29,17 +29,12 @@ try {
 
   // Create starting library with 52 playing cards.
   const library = Deck.create()
-  console.log('Library: ', library.join(', '), '\n')
 
   // Shuffle the library.
   Deck.shuffle(library)
-  console.log('Shuffled library: ', library.join(', '), '\n') // TEST
 
-  // Put the library to the drawpile.
+  // Copy the library to the drawpile.
   const drawPile = library.slice()
-
-  console.log('Sliced library: ', library.join(', '), '\n') // TEST
-  console.log('Drawpile: ', drawPile.join(', '), '\n') // TEST
 
   // Create an starting empty discard pile.
   const discardPile = []
@@ -47,20 +42,10 @@ try {
   // Players' hand
   const player = []
 
+  // Deal the first card to player from the draw pile.
   dealCard(player, drawPile)
 
-  console.log(player.join('')) // TEST¨
-  console.log(player)
-  console.log('Drawpile after deal?: ', drawPile.join(', '), '\n') // TEST
-  
-  
-  dealCard(player, drawPile)
-
-  console.log(player.join('')) // TEST¨
-  console.log(player)
-  console.log('Drawpile after deal?: ', drawPile.join(', '), '\n') // TEST
-
-
+  dealCard(player, whateverPile)
 
   // Draw three playing cards, view the remaining playing cards, the drawn playing cards and
   // then calculate the value of them.
@@ -80,7 +65,7 @@ try {
     process.exitCode = 26
   }
 
-  if (err instanceof EmptyDeck) {
+  if (err instanceof EmptyDeckError) {
     process.exitCode = 27
   }
 }

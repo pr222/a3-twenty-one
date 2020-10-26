@@ -5,6 +5,7 @@
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */
+import { EmptyDeckError } from './EmptyDeckError.js'
 
 /**
  * Deal a new card from the deck to the player.
@@ -15,6 +16,13 @@
  */
 export function dealCard (to, from) {
   let deal = []
+
+  if (from.length < 1) {
+    throw new EmptyDeckError('Cannot draw card from empty deck.')
+  } else if (from.length === 1) {
+
+  }
+
   deal = to.push(from.pop())
   return [deal]
 }
