@@ -29,7 +29,7 @@ export class Player {
    * @memberof Player
    */
   discard (to) {
-    const discarded = to.push(this.hand)
+    const discarded = to.push(...this.hand)
     this.hand = []
     return discarded
   }

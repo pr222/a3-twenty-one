@@ -9,6 +9,8 @@
 import { Ranks } from './Ranks.js'
 import { Suits } from './Suits.js'
 import { PlayingCard } from './PlayingCard.js'
+// import { drawCheck } from './drawCheck.js'
+// import { EmptyDeckError } from './EmptyDeckError.js'
 import { drawCheck } from './drawCheck.js'
 
 /**
@@ -63,14 +65,17 @@ export class Deck {
    *
    * @param {to[]} to - The hand to get the card to.
    * @param {from[]} from - The deck that the card is taken from.
+   * @param {discarded[]} discarded - An array to discard cards to.
    * @throws {Error} - If not able to draw card.
    * @returns {Array} - Returns the two arrays within an array.
    */
-  static dealCard (to, from) {
+  static dealCard (to, from, discarded) {
     let dealt = []
-    drawCheck(from)
+    // Check if possible to draw card, and shuffle in discarded cards.
+    drawCheck(from, discarded)
+
     // Move card from deck to hand.
     dealt = to.push(from.pop())
-    return [dealt]
+    return dealt
   }
 }
