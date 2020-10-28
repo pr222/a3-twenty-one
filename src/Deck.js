@@ -9,6 +9,7 @@
 import { Ranks } from './Ranks.js'
 import { Suits } from './Suits.js'
 import { PlayingCard } from './PlayingCard.js'
+import { drawCheck } from './drawCheck.js'
 
 /**
  * Represents a deck.
@@ -55,5 +56,21 @@ export class Deck {
     }
 
     return deck
+  }
+
+  /**
+   * Deal a new card from the deck to a hand.
+   *
+   * @param {to[]} to - The hand to get the card to.
+   * @param {from[]} from - The deck that the card is taken from.
+   * @throws {Error} - If not able to draw card.
+   * @returns {Array} - Returns the two arrays within an array.
+   */
+  static dealCard (to, from) {
+    let dealt = []
+    drawCheck(from)
+    // Move card from deck to hand.
+    dealt = to.push(from.pop())
+    return [dealt]
   }
 }

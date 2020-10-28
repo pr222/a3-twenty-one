@@ -21,7 +21,7 @@ export function playersToTable () {
   // Make array out of players.
   const players = []
 
-  // Create new instance of Player for each element.
+  // Create new instance of Player for each element of the players array.
   for (let i = 1; i <= nrOfPlayers; i++) {
     players.push(new Player(i))
   }
