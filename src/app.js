@@ -12,13 +12,13 @@ import { InputError } from './InputError.js'
 import { EmptyDeckError } from './EmptyDeckError.js'
 // import { PlayingCard } from './PlayingCard.js'
 import { Player } from './Player.js'
+import { Dealer } from './Dealer.js'
 import { playersToTable } from './playersToTable.js'
 
 try {
   // Get array of players to the table.
   // It also checks that input arguments for players are valid.
   const players = playersToTable()
-  console.log(players)
 
   // Create library with 52 playing cards.
   const library = Deck.create()
@@ -30,40 +30,34 @@ try {
   const discardPile = []
 
   // Bring the dealer to the table.
-  // const dealer = New Dealer
+  const dealer = new Dealer('Dealer')
 
   console.log('Starting library:', library.join(', '), '\n')
 
   // Deal the first card to all players from the library.
   for (let i = 0; i < players.length; i++) {
     Deck.dealCard(players[i].hand, library)
-    console.log(players[i])
+    players[i].showHand()
   }
 
+  // Deck.dealCard(players[0].hand, library, discardPile)
 
+  players[0].showHand()
 
-  Deck.dealCard(players[0].hand, library, discardPile)
-  console.log('First player with some cards: ' + players[0].hand.join(', '))
+  // Deck.dealCard(dealer.hand, library, discardPile)
+  dealer.showHand()
   console.log('Library state:', library.join(', '), '\n')
 
-  players[0].discard(discardPile)
-  players[2].discard(discardPile)
-  players[1].discard(discardPile)
-  console.log('Discard Pile:', discardPile.join(', '), '\n')
+  // players[1].discard(discardPile)
+  // players[2].discard(discardPile)
+  // players[0].discard(discardPile)
+  // console.log('Discard Pile:', discardPile.join(', '), '\n')
+  // for (let i = 0; i < players.length; i++) {
+  //   players[i].showHand()
+  // }
 
-  Deck.dealCard(players[0].hand, library, discardPile)
-  console.log('First player with some cards: ' + players[0].hand.join(', '))
-  console.log('Library state:', library.join(', '), '\n')
-  console.log('Discard Pile:', discardPile.join(', '), '\n')
-
-  Deck.dealCard(players[0].hand, library, discardPile)
-  Deck.dealCard(players[0].hand, library, discardPile)
-  console.log('First player with 2 more cards: ' + players[0].hand.join(', '))
-
-  players[0].discard(discardPile)
-  console.log('First player with discarded cards: ' + players[0].hand.join(', '))
-  console.log('Library state:', library.join(', '), '\n')
-  console.log('Discard Pile:', discardPile.join(', '), '\n')
+  // console.log('Library state:', library.join(', '), '\n')
+  // console.log('Discard Pile:', discardPile.join(', '), '\n')
 } catch (err) {
   console.error(err.message)
   process.exitCode = 1

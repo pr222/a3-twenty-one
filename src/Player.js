@@ -35,14 +35,27 @@ export class Player {
   }
 
   /**
-   * Method to show what the player has in its hand.
+   * Sum up the value of all cards in a hand.
+   *
+   * @returns {number} - Returns the number value of all cards in hand.
+   * @memberof Player
+   */
+  value () {
+    // (`value + playingCard` implicitly calls PlayingCard#valueOf to get
+    //  the primitive value of the current PlayingCard object.)
+    const value = this.hand.reduce((value, playingCard) => value + playingCard, 0)
+
+    return value
+  }
+
+  /**
+   * Displays what cards the player has in its hand.
    *
    * @memberof Player
    */
   showHand () {
-  // (`value + playingCard` implicitly calls PlayingCard#valueOf to get
-  //  the primitive value of the current PlayingCard object.)
-    const value = this.hand.reduce((value, playingCard) => value + playingCard, 0)
-    console.log(`Hand of cards: ${this.hand.join(' ')} (${value})`)
+    const value = this.value()
+
+    console.log(`Player #${this.name}: ${this.hand.join(' ')} (${value})`)
   }
 }
