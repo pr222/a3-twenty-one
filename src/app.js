@@ -39,6 +39,7 @@ try {
     Deck.dealCard(players[i].hand, library, discardPile)
   }
 
+  // Loop through all players and let them play.
   for (let i = 0; i < players.length; i++) {
     // Now the player gets to draw some cards and play!
     players[i].mainStep(library, discardPile)

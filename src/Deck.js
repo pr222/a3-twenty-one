@@ -9,8 +9,6 @@
 import { Ranks } from './Ranks.js'
 import { Suits } from './Suits.js'
 import { PlayingCard } from './PlayingCard.js'
-// import { drawCheck } from './drawCheck.js'
-// import { EmptyDeckError } from './EmptyDeckError.js'
 import { drawCheck } from './drawCheck.js'
 
 /**

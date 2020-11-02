@@ -29,6 +29,13 @@ export class Dealer extends Player {
     return `${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.bust}`
   }
 
+  /**
+   * End step which cleans up after playing the cards.
+   *
+   * @param {Array} discardPile - The place to discard cards.
+   * @returns {object} - Returns this dealer.
+   * @memberof Dealer
+   */
   endStep (discardPile) {
     // Dealer discards its hand after playing against a player.
     if (this.hand.length > 0) {

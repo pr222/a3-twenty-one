@@ -64,6 +64,14 @@ export class Player {
     return `Player #${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.bust}`
   }
 
+  /**
+   * The main step of drawing cards.
+   *
+   * @param {Deck[]} deck - The deck cards are taken from.
+   * @param {discard[]} discard - The place to discard cards.
+   * @returns {object} - Returns this object.
+   * @memberof Player
+   */
   mainStep (deck, discard) {
     while (this.hand.length < 5 && this.value() < 21) {
       Deck.dealCard(this.hand, deck, discard)
@@ -87,6 +95,13 @@ export class Player {
     return this
   }
 
+  /**
+   * End step which cleans up after playing the cards.
+   *
+   * @param {Array} discardPile - The place to discard cards.
+   * @returns {object} - Returns this player.
+   * @memberof Dealer
+   */
   endStep (discardPile) {
     // Player discards its hand at end of its turn.
     this.discard(discardPile)
