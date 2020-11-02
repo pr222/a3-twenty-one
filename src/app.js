@@ -11,9 +11,10 @@ import { Deck } from './Deck.js'
 import { InputError } from './InputError.js'
 import { EmptyDeckError } from './EmptyDeckError.js'
 // import { PlayingCard } from './PlayingCard.js'
-import { Player } from './Player.js'
+// import { Player } from './Player.js'
 import { Dealer } from './Dealer.js'
 import { playersToTable } from './playersToTable.js'
+// import { mainStep } from './mainStep.js'
 // import { playTheGame } from './playTheGame.js'
 
 try {
@@ -40,98 +41,50 @@ try {
   }
 
   for (let i = 0; i < players.length; i++) {
-    let playerWin = false
-    let playerBust = false
-    let playerSatisfied = false
-    let dealerWin = false
-    let dealerBust = false
-    let dealerSatisfied = false
-    //
-    while (players[i].hand.length < 5 && players[i].value() < 21) {
-      Deck.dealCard(players[i].hand, library, discardPile)
-      if (players[i].value() === 21) {
-        playerWin = true
-        console.log('You won at 21!')
-        break
-      } else if (players[i].hand.length === 5 && players[i].value() < 21) {
-        playerWin = true
-        console.log('Winner at 5 cards under 21 points!')
-        break
-      } else if (players[i].value() > 21) {
-        playerBust = true
-        console.log('Sorry, you busted!')
-        break
-      } else if (players[i].value() > 10) {
-        playerSatisfied = true
-        console.log('Player Satisfied')
-        break
-      } else {
-        continue
-      }
-    }
-    //
-    if (playerWin === true) {
+    // Now the player gets to draw some cards and play!
+    players[i].mainStep(library, discardPile)
+
+    if (players[i].win === 'Win!') {
       console.log(players[i].showHand())
       console.log(dealer.showHand())
       console.log('Player wins!', '\n')
-    }
-    if (playerBust === true) {
+    } else if (players[i].bust === 'Bust!') {
       console.log(players[i].showHand())
       console.log(dealer.showHand())
-      console.log('Player busts!', '\n')
-    }
-    if (playerSatisfied === true) {
-      //
-      while (dealer.hand.length < 5 && dealer.value() < 21) {
-        Deck.dealCard(dealer.hand, library, discardPile)
-        if (dealer.value() === 21) {
-          dealerWin = true
-          console.log('Dealer won at 21!')
-          break
-        } else if (dealer.hand.length === 5 && dealer.value() < 21) {
-          dealerWin = true
-          console.log('Dealer won at 5 cards under 21 points!')
-          break
-        } else if (dealer.value() > 21) {
-          dealerBust = true
-          console.log('Dealer busted!')
-          break
-        } else if (dealer.value() > 14) {
-          dealerSatisfied = true
-          console.log('Dealer satisfied')
-          break
-        } else {
-          continue
-        }
-      }
-      //
-      if (dealerWin === true) {
+      console.log('Dealer wins!', '\n')
+    } else {
+      // Let the dealer play if player is satisfied.
+      dealer.mainStep(library, discardPile)
+
+      if (dealer.win === 'Win!') {
         console.log(players[i].showHand())
         console.log(dealer.showHand())
         console.log('Dealer wins!', '\n')
-      }
-      if (dealerBust === true) {
+      } else if (dealer.bust === 'Bust!') {
+        console.log(players[i].showHand())
+        console.log(dealer.showHand())
+        console.log('Player wins!', '\n')
+      } else if (dealer.value() >= players[i].value()) {
+        console.log(players[i].showHand())
+        console.log(dealer.showHand())
+        console.log('Dealer wins!', '\n')
+      } else {
         console.log(players[i].showHand())
         console.log(dealer.showHand())
         console.log('Player wins!', '\n')
       }
-      if (dealerSatisfied && dealer.value() >= players[i].value()) {
-        console.log(players[i].showHand())
-        console.log(dealer.showHand())
-        console.log('Dealer wins!', '\n')
-      }
-      // Dealer discards its hand after playing against a player.
-      if (dealer.hand.length > 0) {
-        dealer.discard(discardPile)
-      }
     }
+
+    // Dealer discards its hand after playing against a player.
+    // Also resets status of win and bust properties.
+    dealer.endStep(discardPile)
+
     // Player discards its hand at end of its turn.
-    players[i].discard(discardPile)
-    //
+    players[i].endStep(discardPile)
   }
 
-  console.log('Library state:', library.join(', '), '\n')
-  console.log('Discard Pile:', discardPile.join(', '), '\n')
+  // console.log('Library state:', library.join(', '), '\n')
+  // console.log('Discard Pile:', discardPile.join(', '), '\n')
 } catch (err) {
   console.error(err.message)
   process.exitCode = 1

@@ -15,8 +15,8 @@ import { Player } from './Player.js'
  * @augments Player - Inherits from the Player class.
  */
 export class Dealer extends Player {
-  // constructor () {
-  //   super()
+  // constructor (name) {
+  //   super(name)
   // }
 
   /**
@@ -26,6 +26,20 @@ export class Dealer extends Player {
    * @returns {string} - A presentation of cards in hand and their summed up value.
    */
   showHand () {
-    return `${this.name}: ${this.hand.join(' ')} (${this.value()})`
+    return `${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.bust}`
+  }
+
+  endStep (discardPile) {
+    // Dealer discards its hand after playing against a player.
+    if (this.hand.length > 0) {
+      this.discard(discardPile)
+    }
+    if (this.bust === 'Bust!') {
+      this.bust = ''
+    }
+    if (this.win === 'Win!') {
+      this.win = ''
+    }
+    return this
   }
 }
