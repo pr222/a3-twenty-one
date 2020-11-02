@@ -7,7 +7,6 @@
  * @author Mats Loock <mats.loock@lnu.se>
  * @version 1.0.0
  */
-import { Deck } from './Deck.js'
 
 /**
  * Representation of a player.
@@ -62,36 +61,5 @@ export class Player {
    */
   showHand () {
     return `Player #${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.result}`
-  }
-
-  /**
-   * The main step of drawing cards.
-   *
-   * @param {Deck[]} deck - The deck cards are taken from.
-   * @param {discard[]} discard - The place to discard cards.
-   * @returns {object} - Returns this object.
-   * @memberof Player
-   */
-  mainStep (deck, discard) {
-    while (this.hand.length < 5 && this.value() < 21) {
-      Deck.dealCard(this.hand, deck, discard)
-      if (this.value() === 21) {
-        this.win = 'Win!'
-
-        break
-      } else if (this.hand.length === 5 && this.value() < 21) {
-        this.win = 'Win!'
-        break
-      } else if (this.value() > 21) {
-        this.bust = 'Bust!'
-        break
-      } else if (this.value() > 13) {
-        this.satisfied = true
-        break
-      } else {
-        continue
-      }
-    }
-    return this
   }
 }

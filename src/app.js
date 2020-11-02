@@ -10,8 +10,6 @@
 import { Deck } from './Deck.js'
 import { InputError } from './InputError.js'
 import { EmptyDeckError } from './EmptyDeckError.js'
-// import { PlayingCard } from './PlayingCard.js'
-// import { Player } from './Player.js'
 import { Dealer } from './Dealer.js'
 import { playersToTable } from './playersToTable.js'
 import { mainStep } from './mainStep.js'
@@ -27,7 +25,7 @@ try {
 
   // Shuffle the library.
   Deck.shuffle(library)
-  console.log('Starting library:', library.join(', '), '\n')
+  // console.log('Starting library:', library.join(', '), '\n')
 
   // Create an empty discard pile.
   const discardPile = []
