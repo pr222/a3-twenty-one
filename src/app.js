@@ -20,7 +20,7 @@ try {
   // It also checks that input arguments for players are valid.
   const players = playersToTable()
 
-  // Create library with 52 playing cards.
+  // Create a library with 52 playing cards.
   const library = Deck.create()
 
   // Shuffle the library.
@@ -43,25 +43,12 @@ try {
     // Now the player gets to draw some cards and play!
     mainStep(players[i], library, discardPile)
 
-    if (players[i].win === true) {
-      displayResluts(players[i], dealer, players[i])
-    } else if (players[i].bust === true) {
-      displayResluts(players[i], dealer, dealer)
-    } else {
-      // Let the dealer play if player didn't win or bust.
-      mainStep(dealer, library, discardPile)
-
-      if (dealer.bust === true) {
-        displayResluts(players[i], dealer, players[i])
-      } else if (dealer.win === true || dealer.value() >= players[i].value()) {
-        displayResluts(players[i], dealer, dealer)
-      } else {
-        displayResluts(players[i], dealer, players[i])
-      }
-    }
+    // Display game results.
+    // (and let dealer play if player has not won or lost)
+    console.log(displayResluts(players[i], dealer, library, discardPile))
 
     // Dealer discards its hand after playing against a player.
-    // Also resets status of win and bust properties.
+    // Also resets the status of win, bust and result properties.
     dealer.endStep(discardPile)
 
     // Player discards its hand at end of its turn.
