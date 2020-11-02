@@ -69,18 +69,16 @@ export class Player {
       Deck.dealCard(this.hand, deck, discard)
       if (this.value() === 21) {
         this.win = 'Win!'
-        console.log('Winner at 21!')
+
         break
       } else if (this.hand.length === 5 && this.value() < 21) {
         this.win = 'Win!'
-        console.log('Winner at 5 cards under 21 points!')
         break
       } else if (this.value() > 21) {
         this.bust = 'Bust!'
         break
       } else if (this.value() > 13) {
         this.satisfied = true
-        console.log('Satisfied')
         break
       } else {
         continue

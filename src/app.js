@@ -14,8 +14,7 @@ import { EmptyDeckError } from './EmptyDeckError.js'
 // import { Player } from './Player.js'
 import { Dealer } from './Dealer.js'
 import { playersToTable } from './playersToTable.js'
-// import { mainStep } from './mainStep.js'
-// import { playTheGame } from './playTheGame.js'
+import { displayResluts } from './displayResults.js'
 
 try {
   // Get array of players to the table.
@@ -45,33 +44,21 @@ try {
     players[i].mainStep(library, discardPile)
 
     if (players[i].win === 'Win!') {
-      console.log(players[i].showHand())
-      console.log(dealer.showHand())
-      console.log('Player wins!', '\n')
+      displayResluts(players[i], dealer, players[i])
     } else if (players[i].bust === 'Bust!') {
-      console.log(players[i].showHand())
-      console.log(dealer.showHand())
-      console.log('Dealer wins!', '\n')
+      displayResluts(players[i], dealer, dealer)
     } else {
-      // Let the dealer play if player is satisfied.
+      // Let the dealer play if player didn't win or bust.
       dealer.mainStep(library, discardPile)
 
       if (dealer.win === 'Win!') {
-        console.log(players[i].showHand())
-        console.log(dealer.showHand())
-        console.log('Dealer wins!', '\n')
+        displayResluts(players[i], dealer, dealer)
       } else if (dealer.bust === 'Bust!') {
-        console.log(players[i].showHand())
-        console.log(dealer.showHand())
-        console.log('Player wins!', '\n')
+        displayResluts(players[i], dealer, players[i])
       } else if (dealer.value() >= players[i].value()) {
-        console.log(players[i].showHand())
-        console.log(dealer.showHand())
-        console.log('Dealer wins!', '\n')
+        displayResluts(players[i], dealer, dealer)
       } else {
-        console.log(players[i].showHand())
-        console.log(dealer.showHand())
-        console.log('Player wins!', '\n')
+        displayResluts(players[i], dealer, players[i])
       }
     }
 

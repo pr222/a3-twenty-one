@@ -34,6 +34,7 @@ export class Dealer extends Player {
     if (this.hand.length > 0) {
       this.discard(discardPile)
     }
+    // Reset properties for next gameturn.
     if (this.bust === 'Bust!') {
       this.bust = ''
     }
