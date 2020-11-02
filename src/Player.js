@@ -19,8 +19,8 @@ export class Player {
     this.name = name
     this.hand = []
     this.result = ''
-    this.bust = ''
-    this.win = ''
+    this.bust = false
+    this.win = false
     this.satisfied = false
   }
 
@@ -61,7 +61,7 @@ export class Player {
    * @returns {string} - A presentation of cards in hand and their summed up value.
    */
   showHand () {
-    return `Player #${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.bust}`
+    return `Player #${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.result}`
   }
 
   /**
@@ -92,20 +92,6 @@ export class Player {
         continue
       }
     }
-    return this
-  }
-
-  /**
-   * End step which cleans up after playing the cards.
-   *
-   * @param {Array} discardPile - The place to discard cards.
-   * @returns {object} - Returns this player.
-   * @memberof Dealer
-   */
-  endStep (discardPile) {
-    // Player discards its hand at end of its turn.
-    this.discard(discardPile)
-
     return this
   }
 }

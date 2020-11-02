@@ -14,6 +14,7 @@ import { EmptyDeckError } from './EmptyDeckError.js'
 // import { Player } from './Player.js'
 import { Dealer } from './Dealer.js'
 import { playersToTable } from './playersToTable.js'
+import { mainStep } from './mainStep.js'
 import { displayResluts } from './displayResults.js'
 
 try {
@@ -42,21 +43,19 @@ try {
   // Loop through all players and let them play.
   for (let i = 0; i < players.length; i++) {
     // Now the player gets to draw some cards and play!
-    players[i].mainStep(library, discardPile)
+    mainStep(players[i], library, discardPile)
 
-    if (players[i].win === 'Win!') {
+    if (players[i].win === true) {
       displayResluts(players[i], dealer, players[i])
-    } else if (players[i].bust === 'Bust!') {
+    } else if (players[i].bust === true) {
       displayResluts(players[i], dealer, dealer)
     } else {
       // Let the dealer play if player didn't win or bust.
-      dealer.mainStep(library, discardPile)
+      mainStep(dealer, library, discardPile)
 
-      if (dealer.win === 'Win!') {
-        displayResluts(players[i], dealer, dealer)
-      } else if (dealer.bust === 'Bust!') {
+      if (dealer.bust === true) {
         displayResluts(players[i], dealer, players[i])
-      } else if (dealer.value() >= players[i].value()) {
+      } else if (dealer.win === true || dealer.value() >= players[i].value()) {
         displayResluts(players[i], dealer, dealer)
       } else {
         displayResluts(players[i], dealer, players[i])
@@ -68,7 +67,7 @@ try {
     dealer.endStep(discardPile)
 
     // Player discards its hand at end of its turn.
-    players[i].endStep(discardPile)
+    players[i].discard(discardPile)
   }
 
   // console.log('Library state:', library.join(', '), '\n')

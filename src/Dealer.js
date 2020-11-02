@@ -26,7 +26,7 @@ export class Dealer extends Player {
    * @returns {string} - A presentation of cards in hand and their summed up value.
    */
   showHand () {
-    return `${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.bust}`
+    return `${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.result}`
   }
 
   /**
@@ -42,11 +42,12 @@ export class Dealer extends Player {
       this.discard(discardPile)
     }
     // Reset properties for next gameturn.
-    if (this.bust === 'Bust!') {
-      this.bust = ''
+    if (this.bust === true) {
+      this.bust = false
+      this.result = ''
     }
-    if (this.win === 'Win!') {
-      this.win = ''
+    if (this.win === true) {
+      this.win = false
     }
     return this
   }
