@@ -26,170 +26,111 @@ try {
 
   // Shuffle the library.
   Deck.shuffle(library)
+  console.log('Starting library:', library.join(', '), '\n')
 
-  // Create an starting empty discard pile.
+  // Create an empty discard pile.
   const discardPile = []
 
   // Bring the dealer to the table.
   const dealer = new Dealer('Dealer')
 
-  console.log('Starting library:', library.join(', '), '\n')
-
   // Deal the first card to all players from the library.
   for (let i = 0; i < players.length; i++) {
     Deck.dealCard(players[i].hand, library, discardPile)
-    players[i].showHand()
   }
 
   for (let i = 0; i < players.length; i++) {
-  //
-    while (players[i].hand && players[i].value() < 21) {
+    let playerWin = false
+    let playerBust = false
+    let playerSatisfied = false
+    let dealerWin = false
+    let dealerBust = false
+    let dealerSatisfied = false
+    //
+    while (players[i].hand.length < 5 && players[i].value() < 21) {
       Deck.dealCard(players[i].hand, library, discardPile)
       if (players[i].value() === 21) {
+        playerWin = true
         console.log('You won at 21!')
-        players[i].showHand()
         break
       } else if (players[i].hand.length === 5 && players[i].value() < 21) {
+        playerWin = true
         console.log('Winner at 5 cards under 21 points!')
-        players[i].this.showHand()
         break
       } else if (players[i].value() > 21) {
+        playerBust = true
         console.log('Sorry, you busted!')
-        players[i].showHand()
         break
       } else if (players[i].value() > 10) {
-        console.log('Satisfied')
-        players[i].showHand()
+        playerSatisfied = true
+        console.log('Player Satisfied')
         break
       } else {
-        players[i].showHand()
         continue
       }
     }
     //
+    if (playerWin === true) {
+      console.log(players[i].showHand())
+      console.log(dealer.showHand())
+      console.log('Player wins!', '\n')
+    }
+    if (playerBust === true) {
+      console.log(players[i].showHand())
+      console.log(dealer.showHand())
+      console.log('Player busts!', '\n')
+    }
+    if (playerSatisfied === true) {
+      //
+      while (dealer.hand.length < 5 && dealer.value() < 21) {
+        Deck.dealCard(dealer.hand, library, discardPile)
+        if (dealer.value() === 21) {
+          dealerWin = true
+          console.log('Dealer won at 21!')
+          break
+        } else if (dealer.hand.length === 5 && dealer.value() < 21) {
+          dealerWin = true
+          console.log('Dealer won at 5 cards under 21 points!')
+          break
+        } else if (dealer.value() > 21) {
+          dealerBust = true
+          console.log('Dealer busted!')
+          break
+        } else if (dealer.value() > 14) {
+          dealerSatisfied = true
+          console.log('Dealer satisfied')
+          break
+        } else {
+          continue
+        }
+      }
+      //
+      if (dealerWin === true) {
+        console.log(players[i].showHand())
+        console.log(dealer.showHand())
+        console.log('Dealer wins!', '\n')
+      }
+      if (dealerBust === true) {
+        console.log(players[i].showHand())
+        console.log(dealer.showHand())
+        console.log('Player wins!', '\n')
+      }
+      if (dealerSatisfied && dealer.value() >= players[i].value()) {
+        console.log(players[i].showHand())
+        console.log(dealer.showHand())
+        console.log('Dealer wins!', '\n')
+      }
+      // Dealer discards its hand after playing against a player.
+      if (dealer.hand.length > 0) {
+        dealer.discard(discardPile)
+      }
+    }
+    // Player discards its hand at end of its turn.
+    players[i].discard(discardPile)
+    //
   }
 
-
-  // Deal the first card to all players from the library.
-  // for (let i = 0; i < players.length; i++) {
-    // playTheGame(players[i], library)
-    // playTheGame(dealer, library)
-
-    // let pleased = false
-    // let playerWinner = false
-    // let playerLoser = false
-
-    // Deck.dealCard(players[i].hand, library)
-    // players[i].showHand()
-    // if (players[i].value() === 21) {
-    //   console.log('You won at 21!')
-    //   winner = true
-    // }
-    // if (players[i].hand.length === 5 && players[i].value() < 21) {
-    //   console.log('Hand with 5 cards and less than 21.')
-    //   winner = true
-    // }
-    // if (players[i].value() > 21) {
-    //   console.log('Busted!')
-    //   loser = true
-    // }
-
-    // while (players[i].hand.length < 5 && players[i].value() < 14) {
-    //   console.log('New card')
-    //   Deck.dealCard(players[i].hand, library)
-    //   players[i].showHand()
-    //   // Check wincon
-    //   if (players[i].value() === 21) {
-    //     // console.log(players[i].showHand())
-    //     console.log('You won at 21!')
-    //     playerWinner = true
-    //   } else if (players[i].hand.length === 5 && players[i].value() < 21) {
-    //     console.log('Hand with 5 cards and less than 21.')
-    //     playerWinner = true
-    //   } else if (players[i].value() > 21) {
-    //     // players[i].showHand()
-    //     console.log('Busted!')
-    //     playerWinner = false
-    //   } else {
-    //     playerWinner = true
-    //     console.log('holding')
-    //   }
-
-
-
-
-    // }
-
-    // if (playerWinner === true) {
-    // if (players[i].value() === 21) {
-    //   console.log('You won at 21!')
-    //   winner = true
-    // } else if (players[i].hand.length === 5 && players[i].value() < 21) {
-    //   console.log('Hand with 5 cards and less than 21.')
-    //   winner = true
-    // } else if (players[i].value() > 21) {
-    //   console.log('Busted!')
-    //   loser = true
-    // }
-    // console.log(loser)
-    // console.log(winner)
-  //     while (dealer.hand.length < 5 && dealer.value() < 12) {
-  //       console.log('New card')
-  //       Deck.dealCard(dealer.hand, library)
-  //       players[i].showHand()
-  //       // Check wincon
-  //       if (dealer.value() === 21) {
-  //         // console.log(players[i].showHand())
-  //         console.log('You won at 21!')
-  //         playerWinner = false
-  //       } else if (dealer.hand.length === 5 && dealer.value() < 21) {
-  //         console.log('Hand with 5 cards and less than 21.')
-  //         playerWinner = false
-  //       } else if (dealer.value() > 21) {
-  //         // players[i].showHand()
-  //         console.log('Busted!')
-  //         playerWinner = true
-  //       } else {
-  //         // playerWinner = true
-  //         console.log('holding')
-  //       }
-  //     }
-  //   } else if (playerWinner === false) {
-  //     console.log('Dealer wins!')
-  //   }
-
-  //   // if (!pleased && !won) {
-  //   //   console.log(players[i].showHand() + 'Busted!')
-  //   //   console.log('Dealer: -')
-  //   //   console.log('Dealer wins!')
-  //   // }
-  // }
-
-
-  // players[i].showHand()
-  // console.log(result)
-
-    // players[i] only needs to discard hand if there is any cards.
-    // if (dealer.hand.length > 0) {
-    //   dealer.discard(discardPile)
-    // }
-    // players[i].discard(discardPile)
-  
-  // Deck.dealCard(players[0].hand, library, discardPile)
-  // players[0].showHand()
-  // Deck.dealCard(dealer.hand, library, discardPile)
-  // dealer.showHand()
-
-
-
- 
-  dealer.showHand()
-  // console.log('Discard Pile:', discardPile.join(', '), '\n')
-  // for (let i = 0; i < players.length; i++) {
-  //   players[i].showHand()
-  // }
-
-  // console.log('Library state:', library.join(', '), '\n')
+  console.log('Library state:', library.join(', '), '\n')
   console.log('Discard Pile:', discardPile.join(', '), '\n')
 } catch (err) {
   console.error(err.message)

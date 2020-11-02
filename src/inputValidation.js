@@ -1,4 +1,3 @@
-
 /**
  * Module for validating commando arguments.
  *
@@ -21,9 +20,10 @@ export function inputValidation () {
   // Convert arguments from string to number.
   players = Number(players)
 
-  // Begins game with 3 players if no extra starting arguments are present.
+  // Begin game with 3 players if no extra starting arguments are present.
   if (players === 0) {
     players = 3
+    return players
   }
 
   // Checks if input arguments are valid numbers for the game to start.

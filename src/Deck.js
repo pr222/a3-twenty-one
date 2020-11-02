@@ -61,21 +61,24 @@ export class Deck {
   }
 
   /**
-   * Deal a new card from the deck to a hand.
+   * Deal a card from a deck to a hand.
    *
-   * @param {to[]} to - The hand to get the card to.
+   * @param {to[]} to - The hand to deal the card to.
    * @param {from[]} from - The deck that the card is taken from.
-   * @param {discarded[]} discarded - An array to discard cards to.
-   * @throws {Error} - If not able to draw card.
-   * @returns {Array} - Returns the two arrays within an array.
+   * @param {discarded[]} discarded - An array to discard cards to if needed.
+   * @throws {Error} - Throws custom error if not possible to draw a card.
+   * @returns {Array} - Returns dealt cards.
    */
   static dealCard (to, from, discarded) {
     let dealt = []
-    // Check if possible to draw card, and shuffle in discarded cards.
+
+    // Check if possible to draw card.
+    // Shuffles discarded cards and puts back in deck if needed.
     drawCheck(from, discarded)
 
     // Move card from deck to hand.
     dealt = to.push(from.pop())
+
     return dealt
   }
 }

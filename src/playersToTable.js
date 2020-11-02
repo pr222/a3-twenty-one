@@ -1,4 +1,3 @@
-
 /**
  * Module for creating new players.
  *
@@ -10,18 +9,17 @@ import { inputValidation } from './inputValidation.js'
 import { Player } from './Player.js'
 
 /**
- * Creates new players.
+ * Creates an array of Player objects.
  *
- * @returns {Array} - Returns array of all the players.
+ * @throws {Error} - Throws custom error if input of players are not valid.
+ * @returns {Array} - Returns an array with Player instances.
  */
 export function playersToTable () {
-  // Begin checking if input is a valid number of players.
+  // First, check if input is a valid number of players.
   const nrOfPlayers = inputValidation()
-
-  // Make array out of players.
   const players = []
 
-  // Create new instance of Player for each element of the players array.
+  // Create as many players as stated for the game into the array.
   for (let i = 1; i <= nrOfPlayers; i++) {
     players.push(new Player(i))
   }

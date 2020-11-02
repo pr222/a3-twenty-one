@@ -9,23 +9,23 @@
 import { Player } from './Player.js'
 
 /**
- * Class representing a dealer.
+ * Representation of a dealer.
  *
  * @class Dealer
  * @augments Player - Inherits from the Player class.
  */
 export class Dealer extends Player {
-//   constructor () {
-//     super()
-//   }
+  // constructor () {
+  //   super()
+  // }
 
   /**
    * Displays what cards the dealer has in its hand.
    *
    * @memberof Dealer
+   * @returns {string} - A presentation of cards in hand and their summed up value.
    */
   showHand () {
-    const value = this.value()
-    console.log(`${this.name}: ${this.hand.join(' ')} (${value})`)
+    return `${this.name}: ${this.hand.join(' ')} (${this.value()})`
   }
 }
