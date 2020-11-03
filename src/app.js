@@ -43,9 +43,19 @@ try {
     // Now the player gets to draw some cards and play!
     mainStep(players[i], library, discardPile)
 
-    // Display game results.
-    // (and let dealer play if player has not won or lost)
-    console.log(displayResluts(players[i], dealer, library, discardPile))
+    if (!players[i].satisfied) {
+      console.log(displayResluts(players[i], dealer))
+    } else {
+      // Let the dealer also play if player didn't win or bust.
+      mainStep(dealer, library, discardPile)
+
+      if (!dealer.satisfied) {
+        console.log(displayResluts(players[i], dealer))
+      } else {
+        // Compare hands if both are satisfied.
+        console.log(displayResluts(players[i], dealer))
+      }
+    }
 
     // Dealer discards its hand after playing against a player.
     // Also resets its status properties.
