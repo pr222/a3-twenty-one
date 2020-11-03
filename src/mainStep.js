@@ -7,6 +7,7 @@
  */
 import { Deck } from './Deck.js'
 import { Dealer } from './Dealer.js'
+import { aceModCheck } from './aceModCheck.js'
 
 /**
  * The main steps of drawing cards.
@@ -20,22 +21,8 @@ export function mainStep (player, deck, discard) {
   while (player.hand.length < 5 && player.points < 21) {
     // Deal a card.
     Deck.dealCard(player.hand, deck, discard)
-
-    let modifier = 0
-    player.points = player.value()
-    // let aceVal = 0
-
-    // console.log(player.hand.rank)
-    for (let i = 0; i < player.hand.length; i++) {
-      if (player.hand[i].rank === 1 && (player.points + 13) < 21) {
-        modifier += 13
-      }
-      console.log(player.hand[i].rank)
-    }
-
-    console.log(`Sum ${modifier}`)
-    player.points = player.points + modifier
-    console.log(`Player points ${player.points}`)
+    // Check and update points for player if Ace is better counted as 14.
+    aceModCheck(player)
 
     if (player.points === 21) {
       player.win = true
@@ -47,10 +34,14 @@ export function mainStep (player, deck, discard) {
       player.bust = true
       player.result = 'Busted!'
       break
-      // Dealer stops taking cards when hand is more than 15.
-    } else if (player instanceof Dealer && player.points > 15) {
-      player.satisfied = true
-      break
+      // Dealer stops taking cards when hand is more than 12.
+    } else if (player instanceof Dealer) {
+      if (player.points > 12) {
+        player.satisfied = true
+        break
+      } else {
+        continue
+      }
       // Player stops taking cards when hand is more than 10.
     } else if (player.points > 10) {
       player.satisfied = true
