@@ -1,7 +1,7 @@
 /**
  * Module for creating new players.
  *
- * @module src/playersToTable.js
+ * @module src/playersToTable
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */
@@ -17,6 +17,7 @@ import { Player } from './Player.js'
 export function playersToTable () {
   // First, check if input is a valid number of players.
   const nrOfPlayers = inputValidation()
+
   const players = []
 
   // Create as many players as stated for the game into the array.

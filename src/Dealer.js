@@ -1,7 +1,7 @@
 /**
  * Module for Dealer sub-class.
  *
- * @module src/Player
+ * @module src/Dealer
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */
@@ -15,18 +15,14 @@ import { Player } from './Player.js'
  * @augments Player - Inherits from the Player class.
  */
 export class Dealer extends Player {
-  // constructor (name) {
-  //   super(name)
-  // }
-
   /**
    * Displays what cards the dealer has in its hand.
    *
    * @memberof Dealer
-   * @returns {string} - A presentation of cards in hand and their summed up value.
+   * @returns {string} - Presents what cards are in the hand and the total points.
    */
   showHand () {
-    return `${this.name}: ${this.hand.join(' ')} (${this.points}) ${this.result}`
+    return `${this.name}: ${this.hand.join(' ')} (${this.points}) ${this.busted}`
   }
 
   /**
@@ -41,10 +37,11 @@ export class Dealer extends Player {
     if (this.hand.length > 0) {
       this.discard(discardPile)
     }
-    // Reset properties for next gameturn.
+
+    // Reset the property values for next game turn.
     if (this.bust === true) {
       this.bust = false
-      this.result = ''
+      this.busted = ''
     }
     if (this.win === true) {
       this.win = false

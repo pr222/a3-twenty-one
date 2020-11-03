@@ -1,5 +1,5 @@
 /**
- * Custom error module for input.
+ * Custom error module for InputError.
  *
  * @module src/InputError
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>

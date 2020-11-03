@@ -1,7 +1,7 @@
 /**
  * Module for drawing cards in the main step of the game.
  *
- * @module src/mainStep.js
+ * @module src/mainStep
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */
@@ -32,11 +32,11 @@ export function mainStep (player, deck, discard) {
       break
     } else if (player.points > 21) {
       player.bust = true
-      player.result = 'Busted!'
+      player.busted = 'Busted!'
       break
-      // Dealer stops taking cards when hand is more than 12.
+      // Dealer stops taking cards when hand is more than 15.
     } else if (player instanceof Dealer) {
-      if (player.points > 12) {
+      if (player.points > 15) {
         player.satisfied = true
         break
       } else {

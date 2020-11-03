@@ -1,7 +1,7 @@
 /**
  * Module to check if possible to draw card from deck.
  *
- * @module src/inputValidation
+ * @module src/drawCheck
  * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @version 1.0.0
  */

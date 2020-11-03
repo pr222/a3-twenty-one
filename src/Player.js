@@ -17,7 +17,7 @@ export class Player {
   constructor (name) {
     this.name = name
     this.hand = []
-    this.result = ''
+    this.busted = ''
     this.bust = false
     this.win = false
     this.satisfied = false
@@ -58,9 +58,9 @@ export class Player {
    * Displays what cards the player has in its hand.
    *
    * @memberof Player
-   * @returns {string} - A presentation of cards in hand and their summed up value.
+   * @returns {string} - Presents what cards are in the hand and the total points.
    */
   showHand () {
-    return `Player #${this.name}: ${this.hand.join(' ')} (${this.points}) ${this.result}`
+    return `Player #${this.name}: ${this.hand.join(' ')} (${this.points}) ${this.busted}`
   }
 }

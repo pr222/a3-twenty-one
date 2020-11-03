@@ -1,6 +1,8 @@
 /**
- * Module for the type PlayingCard.
+ * Module for the Deck class.
  *
+ * @module src/Deck
+ * @author Pauliina Raitaniemi <pr222ja@student.lnu.se>
  * @author Johan Leitet <johan.leitet@lnu.se>
  * @author Mats Loock <mats.loock@lnu.se>
  * @version 1.0.0

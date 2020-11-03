@@ -13,11 +13,11 @@ import { EmptyDeckError } from './EmptyDeckError.js'
 import { Dealer } from './Dealer.js'
 import { playersToTable } from './playersToTable.js'
 import { mainStep } from './mainStep.js'
-import { displayResluts } from './displayResults.js'
+import { resluts } from './results.js'
 
 try {
   // Get array of players to the table.
-  // It also checks that input arguments for players are valid.
+  // It also checks that the commando arguments for players are valid.
   const players = playersToTable()
 
   // Create a library with 52 playing cards.
@@ -25,9 +25,8 @@ try {
 
   // Shuffle the library.
   Deck.shuffle(library)
-  // console.log('Starting library:', library.join(', '), '\n')
 
-  // Create an empty discard pile.
+  // Place an empty discard pile.
   const discardPile = []
 
   // Bring the dealer to the table.
@@ -38,35 +37,33 @@ try {
     Deck.dealCard(players[i].hand, library, discardPile)
   }
 
-  // Loop through all players and let them play.
+  // Loop through all players and let them play one at a time.
   for (let i = 0; i < players.length; i++) {
-    // Now the player gets to draw some cards and play!
+    // The player gets to play!
     mainStep(players[i], library, discardPile)
 
+    // Display results immediatelly if player won or busted before satisfied.
     if (!players[i].satisfied) {
-      console.log(displayResluts(players[i], dealer))
+      console.log(resluts(players[i], dealer))
     } else {
       // Let the dealer also play if player didn't win or bust.
       mainStep(dealer, library, discardPile)
-
+      // Display results immediatelly if dealer won or busted before satisfied.
       if (!dealer.satisfied) {
-        console.log(displayResluts(players[i], dealer))
+        console.log(resluts(players[i], dealer))
       } else {
-        // Compare hands if both are satisfied.
-        console.log(displayResluts(players[i], dealer))
+        // Compare hands if both are satisfied and display the outcome.
+        console.log(resluts(players[i], dealer))
       }
     }
 
     // Dealer discards its hand after playing against a player.
-    // Also resets its status properties.
+    // Dealer also resets its necessary property values for the next game.
     dealer.endStep(discardPile)
 
     // Player discards its hand at end of its turn.
     players[i].discard(discardPile)
   }
-
-  // console.log('Library state:', library.join(', '), '\n')
-  // console.log('Discard Pile:', discardPile.join(', '), '\n')
 } catch (err) {
   console.error(err.message)
   process.exitCode = 1
