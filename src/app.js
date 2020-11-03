@@ -48,7 +48,7 @@ try {
     console.log(displayResluts(players[i], dealer, library, discardPile))
 
     // Dealer discards its hand after playing against a player.
-    // Also resets the status of win, bust and result properties.
+    // Also resets its status properties.
     dealer.endStep(discardPile)
 
     // Player discards its hand at end of its turn.

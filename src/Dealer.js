@@ -26,7 +26,7 @@ export class Dealer extends Player {
    * @returns {string} - A presentation of cards in hand and their summed up value.
    */
   showHand () {
-    return `${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.result}`
+    return `${this.name}: ${this.hand.join(' ')} (${this.points}) ${this.result}`
   }
 
   /**
@@ -49,6 +49,13 @@ export class Dealer extends Player {
     if (this.win === true) {
       this.win = false
     }
+    if (this.satisfied === true) {
+      this.satisfied = false
+    }
+    if (this.points > 0) {
+      this.points = 0
+    }
+
     return this
   }
 }

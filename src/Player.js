@@ -21,6 +21,7 @@ export class Player {
     this.bust = false
     this.win = false
     this.satisfied = false
+    this.points = 0
   }
 
   /**
@@ -60,6 +61,6 @@ export class Player {
    * @returns {string} - A presentation of cards in hand and their summed up value.
    */
   showHand () {
-    return `Player #${this.name}: ${this.hand.join(' ')} (${this.value()}) ${this.result}`
+    return `Player #${this.name}: ${this.hand.join(' ')} (${this.points}) ${this.result}`
   }
 }

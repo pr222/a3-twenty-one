@@ -17,17 +17,18 @@ import { mainStep } from './mainStep.js'
  */
 export function displayResluts (player, dealer, library, discardPile) {
   let winner = ''
+
   if (player.win === true) {
     winner = 'Player'
   } else if (player.bust === true) {
     winner = 'Dealer'
   } else {
-    // Let the dealer play if player didn't win or bust.
+    // Let the dealer also play if player didn't win or bust.
     mainStep(dealer, library, discardPile)
 
     if (dealer.bust === true) {
       winner = 'Player'
-    } else if (dealer.win === true || dealer.value() >= player.value()) {
+    } else if (dealer.win === true || dealer.points >= player.points) {
       winner = 'Dealer'
     } else {
       winner = 'Player'
